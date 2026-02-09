@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	
+	<th:block th:replace="~{layouts/plantillas :: cabecera}"></th:block>
+	
+	<body>
+		
+		<main class="container">
+			
+			<th:block th:replace="~{layouts/plantillas :: barraNavegacion}"></th:block>
+			
+			<!-- INICIO DEL CONTENIDO -->
+			
+	<div class="container form-container">
+	    <div class="card p-4">
+	        <h2 class="text-center mb-4">Registro de Libro</h2>
+	        
+	        <form th:action="@{/guardar}" th:object="${libro}" method="POST">
+	            <div class="row g-3">
+	                <!-- Título -->
+	                <div class="col-12">
+	                    <label class="form-label">Título</label>
+	                    <input type="text" th:field="*{titulo}" class="form-control" placeholder="Ej: Cien años de soledad" required>
+	                </div>
+	
+	                <!-- Autor -->
+		                <div class="col-md-6">
+		                    <label class="form-label">Autor</label>
+		                    <input type="text" th:field="*{autor}" class="form-control" placeholder="Nombre del autor" required>
+		                </div>
+		
+		                <!-- Editorial -->
+		                <div class="col-md-6">
+		                    <label class="form-label">Editorial</label>
+		                    <input type="text" th:field="*{editorial}" class="form-control" placeholder="Nombre de la editorial">
+		                </div>
+		
+		                <!-- Año y Precio -->
+		                <div class="col-md-6">
+		                    <label class="form-label">Año</label>
+		                    <input type="number" th:field="*{anio}" class="form-control" placeholder="AAAA" min="1000" max="2099">
+		                </div>
+		                <div class="col-md-6">
+		                    <label class="form-label">Precio</label>
+		                    <div class="input-group">
+		                        <span class="input-group-text">S/.</span>
+		                        <input type="number" th:field="*{precio}" step="0.01" class="form-control" placeholder="0.00">
+		                    </div>
+		                </div>
+		
+		                <!-- Stock y Categoría -->
+		                <div class="col-md-6">
+		                    <label class="form-label">Stock</label>
+		                    <input type="number" th:field="*{stock}" class="form-control" placeholder="Cantidad">
+		                </div>
+		               <div class="col-md-6">
+		                    <label class="form-label">Categoria</label>
+		                    <input type="text" th:field="*{categoria}" class="form-control" placeholder="Ej: Novela" required>
+		                </div>
+		
+		                <!-- Imagen URL -->
+		                <div class="col-12">
+		                    <label class="form-label">URL de la Imagen</label>
+		                    <input type="url" th:field="*{imagenUrl}" class="form-control" placeholder="https://ejemplo.com">
+		                </div>
+		
+		                <!-- Botón -->
+		                <div class="col-12 d-grid mt-4">
+		                    <button type="submit" class="btn btn-primary btn-lg">Registrar Producto</button>
+		                </div>
+		            </div>
+		        </form>
+		
+		</div>
+	</div>
+	
+	<div class="container mt-5">
+		<div class="card shadow">
+	        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+	            <h5 class="mb-0">Libros Registrados</h5>
+	            <button class="btn btn-light btn-sm">Nuevo Registro</button>
+	        </div>
+	        <div class="card-body">
+	            <div class="table-responsive">
+	                <table class="table table-hover align-middle">
+	                    <thead class="table-light">
+	                        <tr>
+	                        	<th>Codigo</th>
+	                            <th>Imagen</th>
+	                            <th>Título</th>
+	                            <th>Autor</th>
+	                            <th>Editorial</th>
+	                            <th>Año</th>
+	                            <th>Precio</th>
+	                            <th>Stock</th>
+	                            <th>Categoría</th>
+	                        </tr>
+	                    </thead>
+	                    <tbody>
+	                        <!-- Ejemplo de Fila -->
+	                        <tr th:each="li : ${lista}">
+	                        	<td th:text="${li.idLibro}"></td>
+	                            <td th:text="${li.imagenUrl}"><img src="https://via.placeholder.com" alt="Portada" class="img-thumbnail" style="width: 50px;"></td>
+	                            <td th:text="${li.titulo}" class="fw-bold">Cien años de soledad</td>
+	                            <td th:text="${li.autor}" >Gabriel García Márquez</td>
+	                            <td th:text="${li.editorial}">Sudamericana</td>
+	                            <td th:text="${li.anio}">1967</td>
+	                            <td th:text="${li.precio}">$25.00</td>
+	                            <td th:text="${li.stock}"><span class="badge bg-success">15</span></td>
+	                            <td th:text="${li.categoria}">Novela</td>
+	                        </tr>
+	                    </tbody>
+	                </table>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+			
+			<!-- FIN DEL CONTENIDO -->
+		</main>
+		
+		<th:block th:replace="~{layouts/plantillas :: pie}"></th:block>
+		
+	</body>
+</html>
