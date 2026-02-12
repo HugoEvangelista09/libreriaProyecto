@@ -19,6 +19,14 @@ public class LibroService {
 	public void guardar(Libro objLibro) {
 		repository.save(objLibro);
 	}
-	
+	 //  //
+	public Libro buscarPorId(Integer id) {
+	    return repository.findById(id).orElse(null);
+	}
+
+	public void eliminar(Integer id) {
+	    repository.deleteById(id);
+	}
+
 	
 }

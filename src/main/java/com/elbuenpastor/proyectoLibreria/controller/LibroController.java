@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.elbuenpastor.proyectoLibreria.model.Libro;
 import com.elbuenpastor.proyectoLibreria.service.LibroService;
@@ -28,4 +29,18 @@ public class LibroController {
 		return "redirect:/app";
 	}
 	
+	@GetMapping("/editar/{id}")
+	public String editar(@PathVariable Integer id, Model model) {
+	    Libro libro = service.buscarPorId(id);
+	    model.addAttribute("libro", libro);
+	    model.addAttribute("lista", service.listarTodos());
+	    return "libros.html";
+	}
+
+	@GetMapping("/eliminar/{id}")
+	public String eliminar(@PathVariable Integer id) {
+	    service.eliminar(id);
+	    return "redirect:/app";
+	}
+
 }

@@ -108,6 +108,12 @@
 	                            <td th:text="${li.precio}">$25.00</td>
 	                            <td th:text="${li.stock}"><span class="badge bg-success">15</span></td>
 	                            <td th:text="${li.categoria}">Novela</td>
+	                            <th>Acciones</th>
+	                            <td>
+    <a th:href="@{/editar/{id}(id=${li.idLibro})}" class="btn btn-warning btn-sm">Editar</a>
+    <a th:href="@{/eliminar/{id}(id=${li.idLibro})}" class="btn btn-danger btn-sm">Eliminar</a>
+</td>
+	                            
 	                        </tr>
 	                    </tbody>
 	                </table>
