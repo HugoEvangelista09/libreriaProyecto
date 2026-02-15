@@ -29,7 +29,6 @@ public class LibroController {
 		return "redirect:/app";
 	}
 	
-<<<<<<< HEAD
 	@GetMapping("eliminar/{id}")
 	public String eliminar (@PathVariable("id") Integer id) {
 		service.eliminar(id);
@@ -45,20 +44,7 @@ public class LibroController {
 		return "libros.html";
 	}
 	
-=======
-	@GetMapping("/editar/{id}")
-	public String editar(@PathVariable Integer id, Model model) {
-	    Libro libro = service.buscarPorId(id);
-	    model.addAttribute("libro", libro);
-	    model.addAttribute("lista", service.listarTodos());
-	    return "libros.html";
-	}
 
-	@GetMapping("/eliminar/{id}")
-	public String eliminar(@PathVariable Integer id) {
-	    service.eliminar(id);
-	    return "redirect:/app";
-	}
 
->>>>>>> compañero/main
+
 }
