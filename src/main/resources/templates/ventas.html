@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	
+	<th:block th:replace="~{layouts/plantillas :: cabecera}"></th:block>
+	
+	<body>
+		
+		<main class="container">
+			
+			<th:block th:replace="~{layouts/plantillas :: barraNavegacion}"></th:block>
+
+			<!-- INICIO DEL CONTENIDO -->
+
+			<!-- FORMULARIO DE VENTA -->
+			<div class="container form-container mt-4">
+			    <div class="card p-4 shadow">
+			        <h2 class="text-center mb-4">Registrar Venta</h2>
+			        
+			        <form th:action="@{/vender}" method="POST">
+			            <div class="row g-3">
+
+			                <!-- Seleccionar Libro -->
+			                <div class="col-md-6">
+			                    <label class="form-label">Libro</label>
+			                    <select name="idLibro" class="form-select" required>
+			                        <option value="">Seleccione un libro</option>
+			                        <option th:each="li : ${listaLibros}"
+			                                th:value="${li.idLibro}"
+			                                th:text="${li.titulo + ' - Stock: ' + li.stock}">
+			                        </option>
+			                    </select>
+			                </div>
+
+			                <!-- Cantidad -->
+			                <div class="col-md-6">
+			                    <label class="form-label">Cantidad</label>
+			                    <input type="number" name="cantidad" min="1" class="form-control" placeholder="Ingrese cantidad" required>
+			                </div>
+
+			                <!-- Botón -->
+			                <div class="col-12 d-grid mt-4">
+			                    <button type="submit" class="btn btn-success btn-lg">
+			                        Registrar Venta
+			                    </button>
+			                </div>
+
+			            </div>
+			        </form>
+			    </div>
+			</div>
+
+			<!-- TABLA DE VENTAS -->
+			<div class="container mt-5">
+				<div class="card shadow">
+			        <div class="card-header bg-success text-white">
+			            <h5 class="mb-0">Ventas Registradas</h5>
+			        </div>
+			        <div class="card-body">
+			            <div class="table-responsive">
+			                <table class="table table-hover align-middle">
+			                    <thead class="table-light">
+			                        <tr>
+			                            <th>ID Venta</th>
+			                            <th>Libro</th>
+			                            <th>Cantidad</th>
+			                            <th>Total</th>
+			                            <th>Fecha</th>
+			                        </tr>
+			                    </thead>
+			                    <tbody>
+			                        <tr th:each="v : ${listaVentas}">
+			                            <td th:text="${v.idVenta}"></td>
+			                            <td th:text="${v.libro.titulo}"></td>
+			                            <td th:text="${v.cantidad}"></td>
+			                            <td th:text="'S/. ' + ${v.total}"></td>
+			                            <td th:text="${v.fecha}"></td>
+			                        </tr>
+			                    </tbody>
+			                </table>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+
+			<!-- FIN DEL CONTENIDO -->
+		</main>
+		
+		<th:block th:replace="~{layouts/plantillas :: pie}"></th:block>
+		
+	</body>
+</html>

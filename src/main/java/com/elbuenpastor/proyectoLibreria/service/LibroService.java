@@ -19,10 +19,22 @@ public class LibroService {
 	public void guardar(Libro objLibro) {
 		repository.save(objLibro);
 	}
+<<<<<<< HEAD
 	
 	public void eliminar(Integer id) {
 		repository.deleteById(id);
 	}
+=======
+	 //  //
+	public Libro buscarPorId(Integer id) {
+	    return repository.findById(id).orElse(null);
+	}
+
+	public void eliminar(Integer id) {
+	    repository.deleteById(id);
+	}
+
+>>>>>>> compañero/main
 	
 	public Libro buscarPorId(Integer id) {
 		return repository.findById(id).orElse(null);
