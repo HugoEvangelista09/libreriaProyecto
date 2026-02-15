@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layouts/plantillas :: cabecera"></head>
+<body class="bg-light d-flex justify-content-center align-items-center vh-100">
+
+    <div class="card shadow-lg" style="width: 400px;">
+        <div class="card-header bg-primary text-white text-center">
+            <h3>Iniciar Sesión</h3>
+        </div>
+        <div class="card-body">
+
+            <!-- Mensaje de error si el login falla -->
+            <div th:if="${param.error}" class="alert alert-danger text-center">
+                Usuario o contraseña incorrectos
+            </div>
+
+            <!-- Mensaje si el usuario cerró sesión -->
+            <div th:if="${param.logout}" class="alert alert-success text-center">
+                Has cerrado sesión correctamente
+            </div>
+
+            <!-- Formulario de login -->
+            <form th:action="@{/login}" method="post">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Usuario</label>
+                    <input type="text" id="username" name="username" class="form-control" required />
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input type="password" id="password" name="password" class="form-control" required />
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+            </form>
+        </div>
+        <div class="card-footer text-center text-muted">
+            © 2026 Librería El Buen Pastor
+        </div>
+    </div>
+
+    <footer th:replace="layouts/plantillas :: pie"></footer>
+</body>
+</html>
+
+

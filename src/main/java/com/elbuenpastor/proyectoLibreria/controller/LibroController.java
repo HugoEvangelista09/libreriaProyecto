@@ -16,7 +16,7 @@ public class LibroController {
 	@Autowired
 	private LibroService service;
 	
-	@GetMapping("/app")
+	@GetMapping("/index")
 	public String index(Model model) {
 		model.addAttribute("lista", service.listarTodos());
 		model.addAttribute("libro", new Libro());
