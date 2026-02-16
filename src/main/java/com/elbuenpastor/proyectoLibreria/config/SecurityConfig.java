@@ -52,7 +52,7 @@ public class SecurityConfig {
             )
             .formLogin(form -> form
                 .loginPage("/login") // tu vista personalizada
-                .defaultSuccessUrl("/index", true) // 👈 redirige siempre a /index después del login exitoso
+                .defaultSuccessUrl("/libros", true) // 👈 redirige siempre a /index después del login exitoso
                 .permitAll()
             )
             .logout(logout -> logout.permitAll());

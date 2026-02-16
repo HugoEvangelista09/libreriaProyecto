@@ -15,7 +15,10 @@
 	    <div class="card p-4">
 	        <h2 class="text-center mb-4">Registro de Libro</h2>
 	        
-	        <form th:action="@{/guardar}" th:object="${libro}" method="POST">
+	        <form th:action="@{/libros/guardar}" th:object="${libro}" method="POST">
+	        <input type="hidden" th:field="*{idLibro}" />
+	        
+
 	            <div class="row g-3">
 	                <!-- Título -->
 	                <div class="col-12">
@@ -66,7 +69,7 @@
 		
 		                <!-- Botón -->
 		                <div class="col-12 d-grid mt-4">
-		                    <button type="submit" class="btn btn-primary btn-lg">Registrar Producto</button>
+		                    <button type="submit" class="btn btn-success btn-lg" th:text="${libro.idLibro} != null ? 'Actualizar Libro' : 'Registrar Libro'"></button>
 		                </div>
 		            </div>
 		        </form>
@@ -110,9 +113,9 @@
 	                            <td th:text="${li.categoria}">Novela</td>
 	                            <th>Acciones</th>
 	                            <td>
-    <a th:href="@{/editar/{id}(id=${li.idLibro})}" class="btn btn-warning btn-sm">Editar</a>
-    <a th:href="@{/eliminar/{id}(id=${li.idLibro})}" class="btn btn-danger btn-sm">Eliminar</a>
-</td>
+    								<a th:href="@{/libros/editar/{id}(id=${li.idLibro})}" class="btn btn-warning btn-sm">Editar</a>
+									<a th:href="@{/libros/eliminar/{id}(id=${li.idLibro})}" class="btn btn-danger btn-sm">Eliminar</a>
+								</td>
 	                            
 	                        </tr>
 	                    </tbody>
