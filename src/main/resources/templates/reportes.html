@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{layouts/plantillas :: cabecera}"></th:block>
+
+<body>
+<main class="container">
+
+    <th:block th:replace="~{layouts/plantillas :: barraNavegacion}"></th:block>
+
+    <!-- RESUMEN -->
+    <div class="container mt-4">
+        <div class="card p-4 shadow">
+            <h2 class="text-center mb-4">Reportes</h2>
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="card p-3 shadow-sm">
+                        <h5 class="mb-1">Total general vendido</h5>
+                        <h3 class="mb-0">
+                            <span th:text="'S/. ' + ${totalGeneral}">S/. 0</span>
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card p-3 shadow-sm">
+                        <h5 class="mb-1">Top libros más vendidos</h5>
+                        <p class="mb-0 text-muted">Ranking por cantidad vendida</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOP LIBROS -->
+    <div class="container mt-4" th:if="${topLibros != null}">
+        <div class="card shadow">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0">Top Libros Más Vendidos</h5>
+            </div>
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                        <tr>
+                            <th>Libro</th>
+                            <th>Total vendido (cantidad)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="t : ${topLibros}">
+                            <td th:text="${t[0]}">Libro</td>
+                            <td th:text="${t[1]}">0</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- REPORTE POR FECHAS -->
+    <div class="container mt-4">
+        <div class="card p-4 shadow">
+            <h4 class="mb-3">Reporte de ventas por rango de fechas</h4>
+
+            <form th:action="@{/reportes}" method="POST">
+                <div class="row g-3">
+                    <div class="col-md-5">
+                        <label class="form-label">Fecha inicio</label>
+                        <input type="date" name="inicio" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-5">
+                        <label class="form-label">Fecha fin</label>
+                        <input type="date" name="fin" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-2 d-grid align-items-end">
+                        <button type="submit" class="btn btn-success">
+                            Generar
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="mt-3 text-muted" th:if="${inicio != null && fin != null}">
+                Mostrando ventas desde <b th:text="${inicio}"></b> hasta <b th:text="${fin}"></b>
+            </div>
+        </div>
+    </div>
+
+    <!-- TABLA POR FECHAS -->
+    <div class="container mt-4" th:if="${listaVentas != null}">
+        <div class="card shadow">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">Ventas filtradas</h5>
+            </div>
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                        <tr>
+                            <th>ID Venta</th>
+                            <th>Libro</th>
+                            <th>Cantidad</th>
+                            <th>Total</th>
+                            <th>Fecha</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="v : ${listaVentas}">
+                            <td th:text="${v.idVenta}"></td>
+                            <td th:text="${v.libro.titulo}"></td>
+                            <td th:text="${v.cantidad}"></td>
+                            <td th:text="'S/. ' + ${v.total}"></td>
+                            <td th:text="${v.fecha}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h4 class="text-end mt-3" th:if="${totalRango != null}">
+                    Total del rango: <span th:text="'S/. ' + ${totalRango}">S/. 0</span>
+                </h4>
+
+                <div class="alert alert-info mt-3" th:if="${#lists.isEmpty(listaVentas)}">
+                    No hay ventas en el rango seleccionado.
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<th:block th:replace="~{layouts/plantillas :: pie}"></th:block>
+</body>
+</html>

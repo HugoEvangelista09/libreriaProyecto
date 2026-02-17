@@ -40,4 +40,7 @@ public class VentaService {
             libroRepository.save(libro);
         }
     }
+    public List<Venta> listarVentasPorRango(LocalDate inicio, LocalDate fin) {
+        return ventaRepository.findByFechaBetween(inicio, fin);
+    }
 }
