@@ -13,28 +13,65 @@ public class Venta {
 
     private LocalDate fecha;
 
-    private Integer cantidad;
-
     private Double total;
 
     @ManyToOne
-    @JoinColumn(name="idLibro")
-    private Libro libro;
+    @JoinColumn(name="idCliente") // FK CLIENTE
+    private Cliente cliente;
 
-    public Venta() {}
+    
+	public Venta() {
+	
+	}
 
-    public Integer getIdVenta() { return idVenta; }
-    public void setIdVenta(Integer idVenta) { this.idVenta = idVenta; }
 
-    public LocalDate getFecha() { return fecha; }
-    public void setFecha(LocalDate fecha) { this.fecha = fecha; }
+	public Venta(Integer idVenta, LocalDate fecha, Double total, Cliente cliente) {
+		
+		this.idVenta = idVenta;
+		this.fecha = fecha;
+		this.total = total;
+		this.cliente = cliente;
+	}
 
-    public Integer getCantidad() { return cantidad; }
-    public void setCantidad(Integer cantidad) { this.cantidad = cantidad; }
 
-    public Double getTotal() { return total; }
-    public void setTotal(Double total) { this.total = total; }
+	public Integer getIdVenta() {
+		return idVenta;
+	}
 
-    public Libro getLibro() { return libro; }
-    public void setLibro(Libro libro) { this.libro = libro; }
+
+	public void setIdVenta(Integer idVenta) {
+		this.idVenta = idVenta;
+	}
+
+
+	public LocalDate getFecha() {
+		return fecha;
+	}
+
+
+	public void setFecha(LocalDate fecha) {
+		this.fecha = fecha;
+	}
+
+
+	public Double getTotal() {
+		return total;
+	}
+
+
+	public void setTotal(Double total) {
+		this.total = total;
+	}
+
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+    
 }
