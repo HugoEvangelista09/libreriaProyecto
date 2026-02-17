@@ -16,36 +16,30 @@
 			    <div class="card p-4 shadow">
 			        <h2 class="text-center mb-4">Registrar Venta</h2>
 			        
-			        <form th:action="@{/vender}" method="POST">
-			            <div class="row g-3">
+					<form th:action="@{/ventas/guardar}" th:object="${venta}" method="post">
+					
+					    <!-- Fecha -->
+					    <div class="mb-3">
+					        <label>Fecha</label>
+					        <input type="date" th:field="*{fecha}" class="form-control">
+					    </div>
+					    
+					    <select th:field="*{cliente}" class="form-select mb-3">
+						    <option value="">Seleccione cliente</option>
+						    <option th:each="c : ${listaClientes}"
+						            th:value="${c.idCliente}"
+						            th:text="${c.nombre}">
+						    </option>
+						</select>
+					
+					    
+					
+					    <button type="submit" class="btn btn-success ">
+					        Registrar Venta
+					    </button>
+					
+					</form>
 
-			                <!-- Seleccionar Libro -->
-			                <div class="col-md-6">
-			                    <label class="form-label">Libro</label>
-			                    <select name="idLibro" class="form-select" required>
-			                        <option value="">Seleccione un libro</option>
-			                        <option th:each="li : ${listaLibros}"
-			                                th:value="${li.idLibro}"
-			                                th:text="${li.titulo + ' - Stock: ' + li.stock}">
-			                        </option>
-			                    </select>
-			                </div>
-
-			                <!-- Cantidad -->
-			                <div class="col-md-6">
-			                    <label class="form-label">Cantidad</label>
-			                    <input type="number" name="cantidad" min="1" class="form-control" placeholder="Ingrese cantidad" required>
-			                </div>
-
-			                <!-- Botón -->
-			                <div class="col-12 d-grid mt-4">
-			                    <button type="submit" class="btn btn-success btn-lg">
-			                        Registrar Venta
-			                    </button>
-			                </div>
-
-			            </div>
-			        </form>
 			    </div>
 			</div>
 
@@ -60,21 +54,29 @@
 			                <table class="table table-hover align-middle">
 			                    <thead class="table-light">
 			                        <tr>
-			                            <th>ID Venta</th>
-			                            <th>Libro</th>
-			                            <th>Cantidad</th>
-			                            <th>Total</th>
-			                            <th>Fecha</th>
+			                            <th>ID</th>
+										<th>Fecha</th>
+										<th>Cliente</th>
+										<th>Total</th>
+										<th>Acciones</th>
 			                        </tr>
 			                    </thead>
 			                    <tbody>
 			                        <tr th:each="v : ${listaVentas}">
 			                            <td th:text="${v.idVenta}"></td>
-			                            <td th:text="${v.libro.titulo}"></td>
-			                            <td th:text="${v.cantidad}"></td>
-			                            <td th:text="'S/. ' + ${v.total}"></td>
-			                            <td th:text="${v.fecha}"></td>
-			                        </tr>
+										<td th:text="${v.fecha}"></td>
+										<td th:text="${v.cliente.nombre}"></td>
+										<td th:text="${v.total}"></td>
+			                            
+			                            <td>
+								            <a th:href="@{/ventas/editar/{id}(id=${v.idVenta})}" 
+								               class="btn btn-warning btn-sm">Editar</a>
+								
+								            <a th:href="@{/ventas/eliminar/{id}(id=${v.idVenta})}" 
+								               class="btn btn-danger btn-sm">Eliminar</a>
+								        </td>
+			                            		                            
+			                        </tr>         
 			                    </tbody>
 			                </table>
 			            </div>

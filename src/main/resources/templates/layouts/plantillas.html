@@ -37,7 +37,7 @@
 
 				        <!-- Solo ADMIN -->
 				        <li class="nav-item" sec:authorize="hasRole('ADMIN')">
-				        	<a class="nav-link" th:href="@{/reportes}">Reportes</a>
+				        	<a class="nav-link" th:href="@{/detalleventa}">Control Ventas</a>
 				        </li>
 				        <li class="nav-item" sec:authorize="hasRole('ADMIN')">
 				        	<a class="nav-link" th:href="@{/inventario}">Control de Inventario</a>
@@ -46,6 +46,7 @@
       				</ul>
     		</div>
   		</div>
+
 	</nav>
 	
 	<footer th:fragment="pie">

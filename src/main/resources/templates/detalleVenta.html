@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{layouts/plantillas :: cabecera}"></th:block>
+
+<body>
+
+<main class="container">
+
+    <th:block th:replace="~{layouts/plantillas :: barraNavegacion}"></th:block>
+
+    <!-- FORMULARIO DETALLE VENTA -->
+    <div class="container mt-4">
+        <div class="card p-4 shadow">
+
+            <h2 class="text-center mb-4">Agregar Detalle de Venta</h2>
+
+            <form th:action="@{/detalleventa/guardar}" 
+                  th:object="${detalleVenta}" 
+                  method="post">
+
+                <!-- Venta -->
+                <div class="mb-3">
+                    <label>Venta</label>
+                    <select th:field="*{venta}" class="form-select" required>
+                        <option value="">Seleccione Venta</option>
+                        <option th:each="v : ${listaVentas}"
+                                th:value="${v.idVenta}"
+                                th:text="'Venta #' + ${v.idVenta}">
+                        </option>
+                    </select>
+                </div>
+
+                <!-- Libro -->
+                <div class="mb-3">
+                    <label>Libro</label>
+                    <select th:field="*{libro}" class="form-select" required>
+                        <option value="">Seleccione Libro</option>
+                        <option th:each="l : ${listaLibros}"
+                                th:value="${l.idLibro}"
+                                th:text="${l.titulo}">
+                        </option>
+                    </select>
+                </div>
+
+                <!-- Cantidad -->
+                <div class="mb-3">
+                    <label>Cantidad</label>
+                    <input type="number" 
+                           th:field="*{cantidad}" 
+                           class="form-control"
+                           min="1"
+                           required>
+                </div>
+
+               
+
+                <button type="submit" class="btn btn-success w-100">
+                    Agregar Detalle
+                </button>
+
+            </form>
+
+        </div>
+    </div>
+
+    <!-- TABLA DETALLE VENTA -->
+    <div class="container mt-5">
+        <div class="card shadow">
+
+            <div class="card-header bg-primary text-white">
+                <h5>Detalles de Venta</h5>
+            </div>
+
+            <div class="card-body">
+                <table class="table table-hover">
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Venta</th>
+                            <th>Libro</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                            <th>Subtotal</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr th:each="d : ${listaDetalles}">
+                            <td th:text="${d.id}"></td>
+                            <td th:text="${d.venta.idVenta}"></td>
+                            <td th:text="${d.libro.titulo}"></td>
+                            <td th:text="${d.cantidad}"></td>
+                            <td th:text="${d.precio}"></td>
+                            <td th:text="${d.subtotal}"></td>
+
+                            <td>
+                                <a th:href="@{/detalleventa/eliminar/{id}(id=${d.id})}"
+                                class="btn btn-danger btn-sm">
+    								Eliminar
+								</a>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</main>
+
+<th:block th:replace="~{layouts/plantillas :: pie}"></th:block>
+
+</body>
+</html>
