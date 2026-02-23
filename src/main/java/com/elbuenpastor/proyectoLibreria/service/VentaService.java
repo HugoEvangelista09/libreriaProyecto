@@ -1,5 +1,6 @@
 package com.elbuenpastor.proyectoLibreria.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ public class VentaService {
         return ventaRepository.findById(id).orElse(null);
     }
 
+
     // GUARDAR
     public Venta guardar(Venta venta){
         return ventaRepository.save(venta);
@@ -37,4 +39,8 @@ public class VentaService {
     
 
 
-}
+    public List<Venta> listarVentasPorRango(LocalDate inicio, LocalDate fin) {
+        return ventaRepository.findByFechaBetween(inicio, fin);
+    }
+ }
+
